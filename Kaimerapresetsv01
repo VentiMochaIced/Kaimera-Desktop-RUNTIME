@@ -1,0 +1,116 @@
+package main
+
+import (
+	"fmt"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/theme"
+	"fyne.io/fyne/v2/widget"
+)
+
+// STEP 1: Configuration (Equivalent to Python CONFIG dictionary)
+// In Go, it's common to use constants or a struct for configuration.
+const (
+	WindowTitle   = "Go/Fyne UI Prototype v0.0.2"
+	InitialWidth  = 1280
+	InitialHeight = 720
+)
+
+// main function is the entry point for the Go application.
+func main() {
+	// Equivalent to `app = QApplication(sys.argv)` in Python/PyQt
+	myApp := app.New()
+
+	// Equivalent to `window = KoralaiMainWindow()`
+	myWindow := myApp.NewWindow(WindowTitle)
+	myWindow.Resize(fyne.NewSize(InitialWidth, InitialHeight))
+
+	// --- UI/UX UPGRADE: Mimic the Python App's Layout ---
+
+	// Equivalent to Python `setup_toolbar()`.
+	// In Fyne, toolbars are created and then placed in a container.
+	navToolbar := widget.NewToolbar(
+		widget.NewToolbarAction(theme.NavigateBackIcon(), func() { fmt.Println("Nav Back") }),
+		widget.NewToolbarAction(theme.NavigateNextIcon(), func() { fmt.Println("Nav Forward") }),
+		widget.NewToolbarAction(theme.ViewRefreshIcon(), func() { fmt.Println("Reload") }),
+		widget.NewToolbarAction(theme.HomeIcon(), func() { fmt.Println("Home") }),
+	)
+
+	// Equivalent to `self.url_bar = QLineEdit()`
+	urlBar := widget.NewEntry()
+	urlBar.SetPlaceHolder("https://...")
+
+	// Equivalent to `self.add_bookmark_btn = QPushButton("★ Add to Faves")`
+	// The `OnTapped` function is the equivalent of PyQt's `.clicked.connect()`
+	addBookmarkBtn := widget.NewButtonWithIcon("Add to Faves", theme.ConfirmIcon(), func() {
+		// Equivalent to `show_add_bookmark_dialog()`
+		// This shows how a simple dialog can be created and shown.
+		dialog.ShowInformation("Add Favorite", "This is where the add favorite form would appear.", myWindow)
+	})
+
+	// Placing the URL bar and button into a layout container
+	topBar := container.NewBorder(nil, nil, nil, addBookmarkBtn, urlBar)
+	header := container.NewVBox(navToolbar, topBar)
+
+	// --- UI FLOW: Left Panel for Bookmarks ("Faves Manager") ---
+	// Equivalent to the Python `faves_panel` and `bookmarks_list` (QListWidget)
+	// We'll create some dummy data to simulate database content.
+	// DATABASE STEP: This data would come from a `DatabaseManager` struct.
+	bookmarksData := []string{"Fyne.io Docs", "Go Language Site", "Google"}
+	bookmarksList := widget.NewList(
+		func() int {
+			return len(bookmarksData)
+		},
+		func() fyne.CanvasObject {
+			// This creates a "template" for each list item.
+			return widget.NewLabel("template")
+		},
+		func(i widget.ListItemID, o fyne.CanvasObject) {
+			// This populates the template with actual data.
+			o.(*widget.NewLabel).SetText(bookmarksData[i])
+		},
+	)
+
+	// --- Main Content Area (Tabs) ---
+	// Equivalent to the Python `self.tabs = QTabWidget()`
+	tabs := container.NewAppTabs(
+		container.NewTabItem("Homepage", widget.NewLabel("Content for the homepage would be here.")),
+		container.NewTabItem("New Tab", widget.NewLabel("Content for another tab.")),
+	)
+	tabs.SetTabLocation(container.TabLocationTop)
+
+	// --- Main Layout with Splitter ---
+	// Equivalent to `self.splitter = QSplitter(Qt.Orientation.Horizontal)`
+	mainSplit := container.NewHSplit(
+		bookmarksList, // Left side
+		tabs,          // Right side
+	)
+	mainSplit.Offset = 0.25 // Sets the initial split position (25% for the left panel)
+
+	// This is the final layout assembly.
+	// We use a Border container to place the toolbar at the top and the splitter in the center.
+	// This mirrors the final layout of your PyQt application.
+	finalLayout := container.NewBorder(header, nil, nil, nil, mainSplit)
+
+	// Set the content for the window and show it.
+	// Equivalent to `self.setCentralWidget(...)` and `window.show()`
+	myWindow.SetContent(finalLayout)
+	myWindow.ShowAndRun() // This is equivalent to `sys.exit(app.exec())`
+}
+
+// --- Comments on Further Implementation ---
+//
+// 1. DatabaseManager (Equivalent to Python Class):
+//    - You would create a `struct` in Go, e.g., `type DatabaseManager struct { db *sql.DB }`.
+//    - Functions like `add_bookmark` would become methods on this struct, e.g., `func (dm *DatabaseManager) AddBookmark(...)`.
+//    - Go's standard library `database/sql` is used with a driver like "github.com/mattn/go-sqlite3".
+//
+// 2. Custom Web View (QWebEngineView):
+//    - Go does not have a built-in web view widget in the standard library or Fyne.
+//    - For a real browser, you would need to use a more advanced library that provides bindings to a native web renderer, such as Wails or Lorca.
+//    - This example uses `widget.NewLabel` as a simple placeholder for web content.
+//
+// 3. State Management:
+//    - Instead of a class `self`, state in a Go GUI app is typically managed with variables in your `main` function or in custom data structs that are passed to different parts of your UI.
