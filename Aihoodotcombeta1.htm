@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaimera Agentic Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- 
+        AI DEV NOTE: This entire page is a static representation.
+        In a live environment, the Kaimera OS backend (/app/config) would provide the
+        user's context (e.g., "Social", "Business"). The client-side JavaScript
+        would then fetch content from endpoints like `/content/latest?context=SOCIAL`.
+        The Agentic AI system described in 'agentic_prompts.md' is responsible for
+        populating the database that these endpoints draw from.
+    -->
+
+    <div class="max-w-7xl mx-auto bg-white shadow-lg">
+
+        <!-- HEADER -->
+        <header class="p-4 border-b flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-3xl font-bold text-purple-700">KAIMERA</h1>
+                <div class="relative">
+                    <input type="text" placeholder="Search the portal..." class="bg-gray-100 border rounded-full py-2 px-4 w-96">
+                    <i class="fas fa-search absolute right-4 top-3 text-gray-400"></i>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- 
+                    AI DEV NOTE: This section would be populated from the user's Persona
+                    within their active Kaimera OS Context.
+                -->
+                <span class="font-semibold">My Persona</span>
+                <img src="https://placehold.co/40x40/9333ea/ffffff?text=P" alt="User Avatar" class="rounded-full">
+                <i class="fas fa-bell text-xl text-gray-500"></i>
+            </div>
+        </header>
+
+        <!-- SUB-NAVIGATION (DOMAIN CATEGORIES) -->
+        <nav class="bg-white border-b">
+            <ul class="flex justify-center space-x-8 py-2 text-sm font-semibold text-gray-600">
+                <!-- 
+                    AI DEV NOTE: These categories are the "subfolder cats/subdomain ports".
+                    They would correspond to different Agentic AI "handlers" or specialized content
+                    generation pipelines. The list itself could be dynamically generated based on
+                    the user's interests, derived from their ChronoLog.
+                -->
+                <li class="text-purple-700 border-b-2 border-purple-700 pb-1"><a href="#">Home</a></li>
+                <li><a href="#" class="hover:text-purple-700">World News</a></li>
+                <li><a href="#" class="hover:text-purple-700">Technology</a></li>
+                <li><a href="#" class="hover:text-purple-700">Business & Finance</a></li>
+                <li><a href="#" class="hover:text-purple-700">Science</a></li>
+                <li><a href="#" class="hover:text-purple-700">Health</a></li>
+                <li><a href="#" class="hover:text-purple-700">Community</a></li>
+            </ul>
+        </nav>
+
+        <!-- MAIN CONTENT GRID -->
+        <main class="grid grid-cols-12 gap-6 p-4">
+
+            <!-- LEFT COLUMN (MAIN STORIES) -->
+            <div class="col-span-12 md:col-span-8">
+                
+                <!-- TOP STORY -->
+                <div class="mb-6">
+                    <!-- 
+                        AI DEV NOTE: This is the output of a high-priority agentic job.
+                        The 'image_url', 'headline', 'summary', and 'source_count' would
+                        all be fields in the 'GeneratedContent' table in the DB.
+                    -->
+                    <img src="https://placehold.co/800x450/cccccc/333333?text=Top+Story+Image" alt="Top Story" class="w-full h-auto rounded-lg mb-4">
+                    <h2 class="text-3xl font-bold mb-2">Agentic AI Successfully Deploys Cross-Referenced Content Portal</h2>
+                    <p class="text-gray-600 mb-2">The system autonomously generated this article by analyzing three primary sources, identifying key entities, and composing a factual summary...</p>
+                    <div class="text-xs text-gray-500 flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span>Factual Vetting Complete (3 Sources) &middot; 4 hours ago &middot; Tech</span>
+                    </div>
+                </div>
+
+                <hr class="my-6">
+
+                <!-- SUB-STORIES -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Story 1 -->
+                    <div>
+                        <img src="https://placehold.co/400x225/cccccc/333333?text=Finance" alt="Story 1" class="w-full h-auto rounded-lg mb-2">
+                        <h3 class="font-bold text-lg">Kones Crypto Reward Structure Sees 20% Uplift</h3>
+                        <p class="text-sm text-gray-600">Analysis shows the new context-aware reward rules have significantly increased user engagement in business-focused domains...</p>
+                        <div class="text-xs text-gray-500 mt-1">1 day ago &middot; Business & Finance</div>
+                    </div>
+                    <!-- Story 2 -->
+                    <div>
+                        <img src="https://placehold.co/400x225/cccccc/333333?text=Health" alt="Story 2" class="w-full h-auto rounded-lg mb-2">
+                        <h3 class="font-bold text-lg">New Study on AI in Healthcare Diagnostics</h3>
+                        <p class="text-sm text-gray-600">An agentic handler focused on medical journals has compiled a meta-analysis of recent breakthroughs in diagnostic imaging...</p>
+                        <div class="text-xs text-gray-500 mt-1">2 days ago &middot; Health</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN (SIDEBAR) -->
+            <div class="col-span-12 md:col-span-4">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-bold border-b pb-2 mb-4">Trending Topics</h3>
+                    <!-- 
+                        AI DEV NOTE: Trending topics would be generated by analyzing the
+                        keywords from the most recently generated articles or from the user's
+                        own ChronoLog activity, creating a personalized experience.
+                    -->
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex justify-between items-center"><span>1. Agentic AI</span> <span class="text-gray-400">1.2k posts</span></li>
+                        <li class="flex justify-between items-center"><span>2. Kaimera OS v1.0</span> <span class="text-gray-400">980 posts</span></li>
+                        <li class="flex justify-between items-center"><span>3. Decentralized Identity</span> <span class="text-gray-400">750 posts</span></li>
+                        <li class="flex justify-between items-center"><span>4. Contextual Computing</span> <span class="text-gray-400">610 posts</span></li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg mt-6">
+                    <h3 class="font-bold border-b pb-2 mb-4">Community Generated</h3>
+                    <!-- 
+                        AI DEV NOTE: This section showcases content generated not by the main
+                        AI author, but by users themselves, leveraging the KinetikontentPost
+                        model from the Kaimera OS. This promotes user interaction.
+                    -->
+                    <div class="space-y-4 text-sm">
+                        <div>
+                            <p class="font-semibold">"My take on the new Kones reward rules for business..."</p>
+                            <p class="text-xs text-gray-500">by Persona: <span class="font-bold">Analyst_7</span></p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">"A deep dive into Go for OS-level services..."</p>
+                            <p class="text-xs text-gray-500">by Persona: <span class="font-bold">Go_Gopher</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
